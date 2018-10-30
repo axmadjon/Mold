@@ -7,4 +7,7 @@
     <color name="white">#FFFFFF</color>
     <color name="color_transparent">#00000000</color>
 
+    <color name="toolbar_icon_color_silver_dark">#323234</color>
+    <color name="toolbar_subtitle_icon_color_silver_dark">#616166</color>
+
 </resources>
