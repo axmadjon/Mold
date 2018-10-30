@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Hello World!!! Second"
+        android:textColor="#fff"
         android:textSize="18sp" />
 
     <TextView
@@ -17,7 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
+        android:clickable="true"
         android:gravity="center"
-        android:text="Hello" />
+        android:text="Hello"
+        android:textColor="#fff" />
 
 </FrameLayout>

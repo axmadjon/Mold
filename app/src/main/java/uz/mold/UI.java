@@ -10,12 +10,68 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
+import java.util.Objects;
+
 public class UI {
+
+    //----------------------------------------------------------------------------------------------
+
+    @Nullable
+    public static Toolbar getToolbar(MoldContentFragment content) {
+        return (Toolbar) content.findViewById(R.id.toolbar);
+    }
+
+    public static void setTitle(Activity activity, CharSequence title) {
+        MoldActivity moldActivity = Mold.cast(activity);
+        Objects.requireNonNull(moldActivity.getSupportActionBar()).setTitle(title);
+    }
+
+    public static void setTitle(MoldContentFragment content, CharSequence title) {
+        setTitle(content.getActivity(), title);
+    }
+
+    public static void setSubtitle(Activity activity, CharSequence subtitle) {
+        MoldActivity moldActivity = Mold.cast(activity);
+        Objects.requireNonNull(moldActivity.getSupportActionBar()).setSubtitle(subtitle);
+    }
+
+    public static void setSubtitle(MoldContentFragment content, CharSequence subtitle) {
+        setSubtitle(content.getActivity(), subtitle);
+    }
+
+
+    //----------------------------------------------------------------------------------------------
+
+    @Nullable
+    public static AppBarLayout setAppBarExpanded(@NonNull MoldContentFragment content, boolean expanded, boolean animate) {
+        AppBarLayout appBarLayout = content.findViewById(R.id.app_bar_layout);
+        if (appBarLayout != null) appBarLayout.setExpanded(expanded, animate);
+        return appBarLayout;
+    }
+
+    @Nullable
+    public static AppBarLayout setAppBarExpanded(@NonNull MoldContentFragment content, boolean expanded) {
+        return setAppBarExpanded(content, expanded, true);
+    }
+
+    @Nullable
+    public static AppBarLayout setAppBarExpand(@NonNull MoldContentFragment content) {
+        return setAppBarExpanded(content, true);
+    }
+
+    @Nullable
+    public static AppBarLayout setAppBarCollapse(@NonNull MoldContentFragment content) {
+        return setAppBarExpanded(content, false);
+    }
+
 
     //----------------------------------------------------------------------------------------------
 
@@ -66,6 +122,15 @@ public class UI {
         }
     }
 
+
+    //----------------------------------------------------------------------------------------------
+
+    public static void setElevation(@Nullable View view, float elevation) {
+        if (view != null) {
+            ViewCompat.setElevation(view, elevation);
+            ViewCompat.setTranslationZ(view, elevation);
+        }
+    }
 
     //----------------------------------------------------------------------------------------------
 }

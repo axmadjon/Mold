@@ -1,6 +1,7 @@
 package uz.mold;
 
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,5 +33,9 @@ public class MoldContentFragment extends MoldFragment {
         ViewGroup content = findViewById(R.id.fl_mold_fragment_content);
         content.removeAllViews();
         content.addView(view);
+    }
+
+    public int getColor(@ColorRes int resId) {
+        return getResources().getColor(resId);
     }
 }
