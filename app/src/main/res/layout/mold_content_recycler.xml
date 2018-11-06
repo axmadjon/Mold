@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/fl_mold_fragment_content"
+    <include
+        layout="@layout/mold_header_footer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarStyle="outsideOverlay"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <include

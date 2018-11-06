@@ -2,6 +2,7 @@ package uz.mold;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -35,15 +36,11 @@ public abstract class MoldFragment extends Fragment {
 
     @LayoutRes
     protected int getContentResourceId() {
-        return -1;
+        return R.layout.mold_fragment;
     }
 
     protected View populateContentView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        int contentResourceId = getContentResourceId();
-        if (contentResourceId == -1) {
-            throw new RuntimeException("contentResourceId == -1");
-        }
-        return inflater.inflate(contentResourceId, container, false);
+        return inflater.inflate(getContentResourceId(), container, false);
     }
 
     @Nullable
@@ -51,6 +48,20 @@ public abstract class MoldFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         vsRoot = new ViewSetup(populateContentView(inflater, container, savedInstanceState));
         return vsRoot.view;
+    }
+
+    protected void setContentView(@LayoutRes int resId) {
+        setContentView(LayoutInflater.from(getActivity()).inflate(resId, null));
+    }
+
+    protected void setContentView(@NonNull View view) {
+        ViewGroup content = rFindViewById(R.id.fl_mold_fragment_content);
+        content.removeAllViews();
+        content.addView(view);
+    }
+
+    public int getColor(@ColorRes int resId) {
+        return getResources().getColor(resId);
     }
 
     @Nullable

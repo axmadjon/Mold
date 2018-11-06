@@ -4,22 +4,17 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -41,6 +36,20 @@ public class MoldContentFragment extends MoldFragment {
 
     private int menuIdSeq;
 
+    private boolean hasToolbar = true;
+
+    public void setHasToolbar(boolean hasToolbar) {
+        this.hasToolbar = hasToolbar;
+    }
+
+    public boolean isHasToolbar() {
+        return hasToolbar;
+    }
+
+    public boolean hasMoldActionMenus() {
+        return searchQuery != null || (menuActions != null && !menuActions.isEmpty());
+    }
+
     @Override
     protected int getContentResourceId() {
         return R.layout.mold_content;
@@ -50,9 +59,19 @@ public class MoldContentFragment extends MoldFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Toolbar toolbar = rFindViewById(R.id.toolbar);
-        Mold.cast(getActivity()).setSupportActionBar(toolbar);
+        onInitToolbar();
+    }
 
+    protected void onInitToolbar() {
+        if (!isAdded()) return;
+        View rootToolbar = findViewById(R.id.app_bar_layout);
+        if (rootToolbar != null) rootToolbar.setVisibility(hasToolbar ? View.VISIBLE : View.GONE);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        if (hasToolbar && toolbar != null) {
+            Mold.cast(Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        }
 
         View mSearchCancel = findViewById(R.id.iv_cancel);
         if (mSearchCancel != null) {
@@ -67,30 +86,26 @@ public class MoldContentFragment extends MoldFragment {
             });
         }
 
-        MoldActivity activity = Mold.cast(getActivity());
-        ActionBar actionBar = activity.getSupportActionBar();
+        if (hasToolbar) {
+            MoldActivity activity = Mold.cast(getActivity());
+            ActionBar actionBar = activity.getSupportActionBar();
 
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-            toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setHomeButtonEnabled(true);
+
+                if (toolbar != null) {
+                    toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+                }
+            }
         }
-    }
-
-    protected void setContentView(@LayoutRes int resId) {
-        setContentView(LayoutInflater.from(getActivity()).inflate(resId, null));
-    }
-
-    protected void setContentView(@NonNull View view) {
-        ViewGroup content = rFindViewById(R.id.fl_mold_fragment_content);
-        content.removeAllViews();
-        content.addView(view);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if ((menuActions != null && !menuActions.isEmpty()) || searchQuery != null)
+        System.out.println("--- ON START ---");
+        if (((menuActions != null && !menuActions.isEmpty()) || searchQuery != null))
             setHasOptionsMenu(true);
     }
 
@@ -101,11 +116,6 @@ public class MoldContentFragment extends MoldFragment {
             return (AppCompatAutoCompleteTextView) searchView;
         }
         return null;
-    }
-
-
-    public int getColor(@ColorRes int resId) {
-        return getResources().getColor(resId);
     }
 
     //----------------------------------------------------------------------------------------------
@@ -153,6 +163,8 @@ public class MoldContentFragment extends MoldFragment {
         super.onCreateOptionsMenu(menu, inflater);
 
         menu.clear();
+
+        if (!hasMoldActionMenus()) return;
 
         if (searchQuery != null) {
             MenuItem menuItem = menu.add(Menu.NONE, MENU_SEARCH, Menu.NONE, getString(R.string.search));

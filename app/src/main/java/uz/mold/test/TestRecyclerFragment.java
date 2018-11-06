@@ -42,18 +42,20 @@ public class TestRecyclerFragment extends MoldSwipeRecyclerFragment<String> {
         startRefresh();
         if (!isAdded()) return;
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (isAdded()) {
 
-            ArrayList<String> items = new ArrayList<>();
-            for (int i = 0; i < 100; i++) {
-                items.add("Text item => " + i);
+                ArrayList<String> items = new ArrayList<>();
+                for (int i = 0; i < 100; i++) {
+                    items.add("Text item => " + i);
+                }
+                setListItems(items);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
+                adapter.addAll(items);
+                getAutoCompleteTextView().setAdapter(adapter);
+
+                stopRefresh();
             }
-            setListItems(items);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
-            adapter.addAll(items);
-            getAutoCompleteTextView().setAdapter(adapter);
-
-            stopRefresh();
 
         }, 2000);
     }

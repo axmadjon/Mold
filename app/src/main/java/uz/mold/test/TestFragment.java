@@ -24,7 +24,7 @@ public class TestFragment extends MoldContentFragment {
         addMenu(R.drawable.ic_search_white_24dp, "Search", () -> UI.makeSnackBar(getActivity(), "Hello").show());
 
         addSubMenu("RecyclerView", () -> TestRecyclerFragment.open(getActivity()));
-        addSubMenu("Halo1", () -> UI.makeSnackBar(getActivity(), "Hallo1").show());
+        addSubMenu("PageView", () -> TestPageFragment.open(getActivity()));
         addSubMenu("Halo2", () -> UI.makeSnackBar(getActivity(), "Hallo2").show());
 
         UI.setTitle(this, "Mold Frame Title");
