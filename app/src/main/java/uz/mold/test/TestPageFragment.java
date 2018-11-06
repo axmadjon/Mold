@@ -6,9 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import uz.mold.Mold;
-import uz.mold.MoldPageFragment;
+import uz.mold.MoldTabFragment;
+import uz.mold.R;
 
-public class TestPageFragment extends MoldPageFragment {
+public class TestPageFragment extends MoldTabFragment {
 
     public static void open(Activity activity) {
         Mold.openContent(activity, TestPageFragment.class);
@@ -19,6 +20,11 @@ public class TestPageFragment extends MoldPageFragment {
         super.onActivityCreated(savedInstanceState);
 
         setPageListener(new MyTestPageListener());
+
+        setTabIcons(R.drawable.ic_search_white_24dp,
+                R.drawable.ic_search_white_24dp,
+                R.drawable.ic_search_white_24dp,
+                R.drawable.ic_search_white_24dp);
     }
 
     public class MyTestPageListener extends PageListener {
