@@ -10,11 +10,11 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
 import uz.mold.Mold;
-import uz.mold.MoldRecyclerFragment;
+import uz.mold.MoldSwipeRecyclerFragment;
 import uz.mold.R;
 import uz.mold.ViewSetup;
 
-public class TestRecyclerFragment extends MoldRecyclerFragment<String> {
+public class TestRecyclerFragment extends MoldSwipeRecyclerFragment<String> {
 
     public static void open(Activity activity) {
         Mold.openContent(activity, TestRecyclerFragment.class);
@@ -32,11 +32,17 @@ public class TestRecyclerFragment extends MoldRecyclerFragment<String> {
         });
 
         setProgressText("Loading in database");
-
         setEmptyView(R.mipmap.ic_launcher, "Text Empty");
 
+        onRefresh();
+    }
 
+    @Override
+    public void onRefresh() {
+        startRefresh();
+        if (!isAdded()) return;
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
+
             ArrayList<String> items = new ArrayList<>();
             for (int i = 0; i < 100; i++) {
                 items.add("Text item => " + i);
@@ -46,8 +52,10 @@ public class TestRecyclerFragment extends MoldRecyclerFragment<String> {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
             adapter.addAll(items);
             getAutoCompleteTextView().setAdapter(adapter);
-        }, 2000);
 
+            stopRefresh();
+
+        }, 2000);
     }
 
     @Override
