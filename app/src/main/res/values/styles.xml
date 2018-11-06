@@ -10,4 +10,12 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="Mold.ToolbarTheme">
+        <item name="android:actionBarItemBackground">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="Mold.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
 </resources>

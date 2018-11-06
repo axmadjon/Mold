@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import uz.mold.Mold;
 import uz.mold.MoldContentFragment;
 import uz.mold.R;
 import uz.mold.UI;
+import uz.mold.common.MoldSearchQuery;
 
 public class TestSecondFragment extends MoldContentFragment {
 
@@ -38,6 +40,14 @@ public class TestSecondFragment extends MoldContentFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setContentView(R.layout.z_test_content_second);
+
+        setSearchMenu(new MoldSearchQuery() {
+            @Override
+            public void onQueryText(String s) {
+                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         AppBarLayout appBarLayout = UI.setAppBarExpand(this);
 
         if (appBarLayout != null) {

@@ -20,6 +20,10 @@
         <activity
             android:name=".MoldActivity"
             android:theme="@style/Mold.NoActionBar" />
+
+        <activity
+            android:name=".MoldFragmentActivity"
+            android:theme="@style/Mold.NoActionBar" />
     </application>
 
 </manifest>

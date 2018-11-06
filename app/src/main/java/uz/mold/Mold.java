@@ -30,23 +30,20 @@ public class Mold {
         activity.startActivity(newContent(activity, cls, args));
     }
 
-    public static void openContent(@NonNull Class<? extends MoldFragment> cls, @Nullable Bundle args) {
-        openContent(getCurrentActivity(), cls, args);
-    }
-
     public static void openContent(@NonNull Activity activity, @NonNull Class<? extends MoldFragment> cls) {
         activity.startActivity(newContent(activity, cls, null));
-    }
-
-    public static void openContent(@NonNull Class<? extends MoldFragment> cls) {
-        openContent(getCurrentActivity(), cls);
     }
 
     //----------------------------------------------------------------------------------------------
 
     @Nullable
+    public static <T extends MoldFragment> T getContentFragment(@NonNull MoldActivity activity) {
+        return (T) activity.getContentFragment();
+    }
+
+    @Nullable
     public static <T extends MoldFragment> T getContentFragment(@NonNull Activity activity) {
-        return (T) cast(activity).getContentFragment();
+        return (T) ((MoldActivity) activity).getContentFragment();
     }
 
     //----------------------------------------------------------------------------------------------
@@ -61,14 +58,6 @@ public class Mold {
     }
 
     //----------------------------------------------------------------------------------------------
-
-    @NonNull
-    public static MoldActivity getCurrentActivity() {
-        if (MoldActivity.getActivity() == null) {
-            throw new RuntimeException("Activity is not init");
-        }
-        return MoldActivity.getActivity();
-    }
 
     @NonNull
     public static MoldActivity cast(@NonNull Activity activity) {

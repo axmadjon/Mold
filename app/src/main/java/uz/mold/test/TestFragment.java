@@ -20,12 +20,20 @@ public class TestFragment extends MoldContentFragment {
         super.onActivityCreated(savedInstanceState);
         setContentView(R.layout.z_test_content);
 
+        setSearchMenu(s -> System.out.println(s));
+        addMenu(R.drawable.ic_search_white_24dp, "Search", () -> UI.makeSnackBar(getActivity(), "Hello").show());
+
+        addSubMenu("RecyclerView", () -> TestRecyclerFragment.open(getActivity()));
+        addSubMenu("Halo1", () -> UI.makeSnackBar(getActivity(), "Hallo1").show());
+        addSubMenu("Halo2", () -> UI.makeSnackBar(getActivity(), "Hallo2").show());
+
         UI.setTitle(this, "Mold Frame Title");
         UI.setSubtitle(this, "This is subtitle");
 
         UI.setElevation(UI.setAppBarExpand(this), 5f);
 
-        findViewById(R.id.tv_message).setOnClickListener(view ->
-                TestSecondFragment.open(getActivity(), new TestArgMessage("Helllllooooo Woooorrrrllllddd!!!!")));
+        findViewById(R.id.tv_message).setOnClickListener(view -> {
+            TestSecondFragment.open(getActivity(), new TestArgMessage("Helllllooooo Woooorrrrllllddd!!!!"));
+        });
     }
 }

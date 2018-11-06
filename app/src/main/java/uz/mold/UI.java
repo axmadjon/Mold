@@ -86,7 +86,8 @@ public class UI {
 
     @NonNull
     public static Snackbar makeSnackBar(@NonNull Activity activity, @NonNull CharSequence messages) {
-        return Snackbar.make(Mold.cast(activity).getCoordinateLayout(), messages, Snackbar.LENGTH_SHORT);
+        View rootView = activity.findViewById(R.id.mold_coordinate_layout);
+        return Snackbar.make(rootView, messages, Snackbar.LENGTH_SHORT);
     }
 
     @NonNull
@@ -121,7 +122,6 @@ public class UI {
             v.requestLayout();
         }
     }
-
 
     //----------------------------------------------------------------------------------------------
 

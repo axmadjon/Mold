@@ -10,10 +10,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public abstract class MoldFragment extends Fragment {
 
     private static final String ARG_FRAGMENT_DATA = "uz.mold.mold_content_data";
+
+    protected ViewSetup vsRoot;
 
     private Parcelable data;
 
@@ -41,7 +49,8 @@ public abstract class MoldFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return populateContentView(inflater, container, savedInstanceState);
+        vsRoot = new ViewSetup(populateContentView(inflater, container, savedInstanceState));
+        return vsRoot.view;
     }
 
     @Nullable
@@ -50,31 +59,69 @@ public abstract class MoldFragment extends Fragment {
         return view == null ? null : view.findViewById(resId);
     }
 
+    @NonNull
+    public <V extends View> V rFindViewById(@IdRes int resId) {
+        return (V) vsRoot.id(resId);
+    }
+
+    //----------------------------------------------------------------------------------------------
+
+    @NonNull
+    public TextView textView(@IdRes int resId) {
+        return vsRoot.id(resId);
+    }
+
+    @NonNull
+    public ImageView imageView(@IdRes int resId) {
+        return vsRoot.id(resId);
+    }
+
+    @NonNull
+    public EditText editText(@IdRes int resId) {
+        return vsRoot.id(resId);
+    }
+
+    @NonNull
+    public Button button(@IdRes int resId) {
+        return vsRoot.id(resId);
+    }
+
+    @NonNull
+    public <T extends CompoundButton> T compoundButton(@IdRes int resId) {
+        return vsRoot.id(resId);
+    }
+
+    @NonNull
+    public Spinner spinner(@IdRes int resId) {
+        return vsRoot.id(resId);
+    }
+
+    @NonNull
+    public <T extends ViewGroup> T viewGroup(@IdRes int resId) {
+        return vsRoot.id(resId);
+    }
+
+    //----------------------------------------------------------------------------------------------
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MoldFragmentListener listener = Mold.cast(getActivity()).mMoldFragmentListener;
-        if (listener != null) listener.onActivityCreated(this);
+        MoldActivity.onActivityCreated(this);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-        MoldFragmentListener listener = Mold.cast(getActivity()).mMoldFragmentListener;
-        if (listener != null) listener.onStart(this);
+        MoldActivity.onStart(this);
     }
 
-    public void onAboveContentPopped(Object result) {
+    public void onAboveContentPopped(@NonNull Object result) {
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-        MoldFragmentListener listener = Mold.cast(getActivity()).mMoldFragmentListener;
-        if (listener != null) listener.onStop(this);
+        MoldActivity.onStop(this);
     }
 
     @Override
@@ -86,27 +133,23 @@ public abstract class MoldFragment extends Fragment {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-
-        MoldFragmentListener listener = Mold.cast(getActivity()).mMoldFragmentListener;
-        if (listener != null) listener.onLowMemory(this);
+        MoldActivity.onLowMemory(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        MoldFragmentListener listener = Mold.cast(getActivity()).mMoldFragmentListener;
-        if (listener != null) listener.onDestroy(this);
+        MoldActivity.onDestroy(this);
     }
 
-    public <T extends Parcelable> T manageFragmentData(Parcelable data) {
+    public <T extends Parcelable> T manageFragmentData(@NonNull Parcelable data) {
         if (this.data == null) {
             this.data = data;
         }
         return (T) this.data;
     }
 
-    public void setFragmentData(Parcelable data) {
+    public void setFragmentData(@NonNull Parcelable data) {
         this.data = data;
     }
 
