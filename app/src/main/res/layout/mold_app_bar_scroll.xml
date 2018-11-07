@@ -5,27 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    android:elevation="0dp"
+    android:elevation="5dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:elevation="0dp">
+    app:elevation="5dp">
+
 
     <FrameLayout
+        android:id="@+id/fl_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/mold_status_bar_padding">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:subtitleTextColor="@color/white"
-            app:titleTextColor="@color/white" />
-
-        <include
-            layout="@layout/mold_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </FrameLayout>
+        app:layout_scrollFlags="scroll|enterAlways|snap" />
 
 </android.support.design.widget.AppBarLayout>

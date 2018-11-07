@@ -14,6 +14,8 @@ public class TestPage1Fragment extends MoldContentFragment {
         super.onActivityCreated(savedInstanceState);
         setContentView(R.layout.z_test_content);
 
+        setSearchMenu(s -> {
+        });
         addMenu(R.drawable.ic_search_white_24dp, "Search", () -> UI.makeSnackBar(getActivity(), "Hello").show());
 
     }

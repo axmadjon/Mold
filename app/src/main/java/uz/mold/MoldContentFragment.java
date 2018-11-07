@@ -4,17 +4,21 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -35,7 +39,8 @@ public class MoldContentFragment extends MoldFragment {
     int searchQueryIcon = -1;
 
     private int menuIdSeq;
-
+    private int mToolbar = R.layout.mold_toolbar_default;
+    private View mToolbarView = null;
     private boolean hasToolbar = true;
 
     public void setHasToolbar(boolean hasToolbar) {
@@ -48,6 +53,14 @@ public class MoldContentFragment extends MoldFragment {
 
     public boolean hasMoldActionMenus() {
         return searchQuery != null || (menuActions != null && !menuActions.isEmpty());
+    }
+
+    public void setToolbarView(@NonNull View view) {
+        this.mToolbarView = view;
+    }
+
+    public void setToolbarView(@LayoutRes int layoutId) {
+        this.mToolbar = layoutId;
     }
 
     @Override
@@ -63,9 +76,19 @@ public class MoldContentFragment extends MoldFragment {
     }
 
     protected void onInitToolbar() {
-        if (!isAdded()) return;
+        if (!isAdded() || !hasToolbar) return;
+
         View rootToolbar = findViewById(R.id.app_bar_layout);
         if (rootToolbar != null) rootToolbar.setVisibility(hasToolbar ? View.VISIBLE : View.GONE);
+
+        View view = findViewById(R.id.fl_toolbar);
+        if (view instanceof ViewGroup) {
+            if (mToolbarView == null) {
+                LayoutInflater inflater = LayoutInflater.from(getActivity());
+                mToolbarView = inflater.inflate(mToolbar, null);
+            }
+            ((ViewGroup) view).addView(mToolbarView);
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
@@ -104,7 +127,6 @@ public class MoldContentFragment extends MoldFragment {
     @Override
     public void onStart() {
         super.onStart();
-        System.out.println("--- ON START ---");
         if (((menuActions != null && !menuActions.isEmpty()) || searchQuery != null))
             setHasOptionsMenu(true);
     }
@@ -233,7 +255,7 @@ public class MoldContentFragment extends MoldFragment {
     }
 
     public void circleReveal(int viewID, int posFromRight, boolean containsOverflow, final boolean isShow) {
-        final View myView = findViewById(viewID);
+        final View myView = getActivity().findViewById(viewID);
 
         int width = myView.getWidth();
 

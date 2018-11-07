@@ -12,18 +12,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
-        android:padding="16dp"
+        android:focusable="true"
+        android:padding="8dp"
         android:src="@drawable/ic_search_arrow_back" />
 
     <android.support.v7.widget.AppCompatAutoCompleteTextView
         android:id="@+id/auto_complete"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="@color/color_transparent"
         android:drawablePadding="16dp"
         android:hint="@string/search"
         android:maxLines="1"
@@ -36,9 +38,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginEnd="4dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
-        android:padding="14dp"
+        android:focusable="true"
+        android:padding="8dp"
         android:src="@drawable/ic_serach_clear_24dp" />
 
 </LinearLayout>

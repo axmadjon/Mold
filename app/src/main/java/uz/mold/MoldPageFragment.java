@@ -18,6 +18,14 @@ public abstract class MoldPageFragment<E> extends MoldContentHeaderFooterFragmen
 
     protected ViewPager mViewPager;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setToolbarView(R.layout.mold_toolbar_card_view);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
