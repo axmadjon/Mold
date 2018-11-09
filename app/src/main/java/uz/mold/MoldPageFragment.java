@@ -1,7 +1,9 @@
 package uz.mold;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -83,7 +85,7 @@ public abstract class MoldPageFragment<E> extends MoldContentHeaderFooterFragmen
     //----------------------------------------------------------------------------------------------
 
     public void setPageListener(PageListener pageListener) {
-        PageAdapter adapter = new PageAdapter(getChildFragmentManager(), pageListener);
+        MyPageAdapter adapter = new MyPageAdapter(getChildFragmentManager(), pageListener);
         pageListener.adapter = adapter;
         setAdapter(adapter);
     }
@@ -104,11 +106,11 @@ public abstract class MoldPageFragment<E> extends MoldContentHeaderFooterFragmen
 
     //----------------------------------------------------------------------------------------------
 
-    class PageAdapter extends FragmentStatePagerAdapter {
+    public class MyPageAdapter extends FragmentStatePagerAdapter {
 
-        private final PageListener listener;
+        public final PageListener listener;
 
-        public PageAdapter(FragmentManager fm, PageListener listener) {
+        public MyPageAdapter(FragmentManager fm, PageListener listener) {
             super(fm);
             this.listener = listener;
         }
@@ -136,13 +138,20 @@ public abstract class MoldPageFragment<E> extends MoldContentHeaderFooterFragmen
 
     public static abstract class PageListener {
 
+        @NonNull
         public abstract Fragment getItem(int position);
 
         public abstract int getCount();
 
         protected PagerAdapter adapter;
 
+        @Nullable
         public CharSequence getPageTitle(int position) {
+            return null;
+        }
+
+        @Nullable
+        public Drawable getIcon(int position) {
             return null;
         }
     }

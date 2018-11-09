@@ -2,6 +2,7 @@ package uz.mold.test;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
@@ -19,11 +20,6 @@ public class TestPageFragmentPage extends MoldPageTabFragment {
         super.onActivityCreated(savedInstanceState);
 
         setPageListener(new MyTestPageListener());
-
-//        setTabIcons(R.drawable.ic_search_white_24dp,
-//                R.drawable.ic_search_white_24dp,
-//                R.drawable.ic_search_white_24dp,
-//                R.drawable.ic_search_white_24dp);
     }
 
     public class MyTestPageListener extends PageListener {
@@ -44,6 +40,7 @@ public class TestPageFragmentPage extends MoldPageTabFragment {
             }
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             switch (position) {
