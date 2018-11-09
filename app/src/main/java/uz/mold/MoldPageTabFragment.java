@@ -6,7 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 
-public class MoldTabFragment extends MoldPageFragment {
+public class MoldPageTabFragment extends MoldPageFragment {
 
     @Override
     protected int getContentResourceId() {

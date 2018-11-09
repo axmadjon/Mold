@@ -7,7 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-public abstract class MoldSwipeRecyclerFragment<E> extends MoldRecyclerFragment<E> implements SwipeRefreshLayout.OnRefreshListener {
+public abstract class MoldRecyclerSwipeFragment<E> extends MoldRecyclerFragment<E> implements SwipeRefreshLayout.OnRefreshListener {
 
 
     protected SwipeRefreshLayout mSwipeRefreshLayout;

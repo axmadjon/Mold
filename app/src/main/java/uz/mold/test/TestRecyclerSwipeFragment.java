@@ -10,14 +10,14 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
 import uz.mold.Mold;
-import uz.mold.MoldSwipeRecyclerFragment;
+import uz.mold.MoldRecyclerSwipeFragment;
 import uz.mold.R;
 import uz.mold.ViewSetup;
 
-public class TestRecyclerFragment extends MoldSwipeRecyclerFragment<String> {
+public class TestRecyclerSwipeFragment extends MoldRecyclerSwipeFragment<String> {
 
     public static void open(Activity activity) {
-        Mold.openContent(activity, TestRecyclerFragment.class);
+        Mold.openContent(activity, TestRecyclerSwipeFragment.class);
     }
 
     @Override

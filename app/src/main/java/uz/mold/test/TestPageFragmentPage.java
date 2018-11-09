@@ -6,12 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import uz.mold.Mold;
-import uz.mold.MoldTabFragment;
+import uz.mold.MoldPageTabFragment;
 
-public class TestPageFragment extends MoldTabFragment {
+public class TestPageFragmentPage extends MoldPageTabFragment {
 
     public static void open(Activity activity) {
-        Mold.openContent(activity, TestPageFragment.class);
+        Mold.openContent(activity, TestPageFragmentPage.class);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class TestPageFragment extends MoldTabFragment {
                 case 2:
                     return new TestPage3Fragment();
                 case 3:
-                    return new TestRecyclerFragment();
+                    return new TestRecyclerSwipeFragment();
                 default:
                     throw new UnsupportedOperationException();
             }
