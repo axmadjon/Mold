@@ -34,6 +34,7 @@ public class MoldContentFragment extends MoldFragment {
 
     protected static final int MENU_SEARCH = 100;
 
+    protected TextWatcher mSearchTextWatcher = null;
     protected MoldSearchQuery searchQuery;
     protected List<MoldAction> menuActions;
     int searchQueryIcon = -1;
@@ -103,7 +104,7 @@ public class MoldContentFragment extends MoldFragment {
 
         View mClearView = findViewById(R.id.iv_clear);
         if (mClearView != null) {
-            EditText mSearch = findViewById(R.id.auto_complete);
+            EditText mSearch = getActivity().findViewById(R.id.auto_complete);
             mClearView.setOnClickListener(v -> {
                 if (mSearch != null) mSearch.setText("");
             });
@@ -122,6 +123,11 @@ public class MoldContentFragment extends MoldFragment {
                 }
             }
         }
+
+        View mRootSearchView = getActivity().findViewById(R.id.ll_search);
+        if (mRootSearchView != null && mRootSearchView.getVisibility() == View.VISIBLE) {
+            circleReveal(R.id.ll_search, 1, true, false);
+        }
     }
 
     @Override
@@ -133,7 +139,7 @@ public class MoldContentFragment extends MoldFragment {
 
     @Nullable
     protected AppCompatAutoCompleteTextView getAutoCompleteTextView() {
-        View searchView = findViewById(R.id.auto_complete);
+        View searchView = getActivity().findViewById(R.id.auto_complete);
         if (searchView instanceof AppCompatAutoCompleteTextView) {
             return (AppCompatAutoCompleteTextView) searchView;
         }
@@ -184,6 +190,13 @@ public class MoldContentFragment extends MoldFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
+        if (isAdded()) {
+            View mRootSearchView = getActivity().findViewById(R.id.ll_search);
+            if (mRootSearchView != null && mRootSearchView.getVisibility() == View.VISIBLE) {
+                circleReveal(R.id.ll_search, 1, true, false);
+            }
+        }
+
         menu.clear();
 
         if (!hasMoldActionMenus()) return;
@@ -193,23 +206,36 @@ public class MoldContentFragment extends MoldFragment {
             menuItem.setIcon(UI.changeDrawableColor(getActivity(), searchQueryIcon, R.color.toolbar_icon_color_silver_dark));
             menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-            EditText mSearch = findViewById(R.id.auto_complete);
-            if (mSearch != null) mSearch.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            EditText mSearch = getActivity().findViewById(R.id.auto_complete);
 
+            if (mSearch != null) {
+                if (mSearchTextWatcher != null) {
+                    mSearch.removeTextChangedListener(mSearchTextWatcher);
+                    mSearchTextWatcher = null;
                 }
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mSearch.setText("");
 
-                }
+                if (mSearchTextWatcher == null) {
+                    mSearchTextWatcher = new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    if (searchQuery != null) searchQuery.onQueryText(editable.toString());
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            if (searchQuery != null) searchQuery.onQueryText(editable.toString());
+                        }
+                    };
                 }
-            });
+                mSearch.addTextChangedListener(mSearchTextWatcher);
+            }
         }
 
         if (menuActions != null) {
@@ -280,7 +306,7 @@ public class MoldContentFragment extends MoldFragment {
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (isShow) {
-                    EditText mSearch = findViewById(R.id.auto_complete);
+                    EditText mSearch = getActivity().findViewById(R.id.auto_complete);
                     if (isAdded() && mSearch != null) {
                         mSearch.requestFocus();
 
