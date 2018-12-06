@@ -24,16 +24,14 @@ public class TestFragment extends MoldContentFragment {
         addMenu(R.drawable.ic_search_white_24dp, "Search", () -> UI.makeSnackBar(getActivity(), "Hello").show());
 
         addSubMenu("RecyclerView", () -> TestRecyclerSwipeFragment.open(getActivity()));
-        addSubMenu("PageView", () -> TestPageFragmentPage.open(getActivity()));
-        addSubMenu("Halo2", () -> UI.makeSnackBar(getActivity(), "Hallo2").show());
+        addSubMenu("PageView", () -> TestPageFragment.open(getActivity()));
+        addSubMenu("Index", () -> TestIndexFragment.open(getActivity()));
 
         UI.setTitle(this, "Mold Frame Title");
         UI.setSubtitle(this, "This is subtitle");
 
         UI.setElevation(UI.setAppBarExpand(this), 5f);
 
-        findViewById(R.id.tv_message).setOnClickListener(view -> {
-            TestSecondFragment.open(getActivity(), new TestArgMessage("Helllllooooo Woooorrrrllllddd!!!!"));
-        });
+        findViewById(R.id.tv_message).setOnClickListener(view -> Mold.addContent(getActivity(), new TestSecondFragment()));
     }
 }

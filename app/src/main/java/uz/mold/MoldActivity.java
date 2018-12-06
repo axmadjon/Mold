@@ -32,6 +32,30 @@ public class MoldActivity extends AppCompatActivity {
     private static final ArrayList<MoldFragmentLowMemoryImpl> mOnFragmentLowMemoryListener = new ArrayList<>();
     private static final ArrayList<MoldFragmentDestroyImpl> mOnFragmentDestroyListener = new ArrayList<>();
 
+    //----------------------------------------------------------------------------------------------
+
+    public static void removeOnFragmentActivityCreated(MoldFragmentActivityCreatedImpl listener) {
+        mOnFragmentActivityCreatedListener.remove(listener);
+    }
+
+    public static void removeOnFragmentStart(MoldFragmentStartImpl listener) {
+        mOnFragmentStartListener.remove(listener);
+    }
+
+    public static void removeOnFragmentStop(MoldFragmentStopImpl listener) {
+        mOnFragmentStopListener.remove(listener);
+    }
+
+    public static void removeOnFragmentLowMemory(MoldFragmentLowMemoryImpl listener) {
+        mOnFragmentLowMemoryListener.remove(listener);
+    }
+
+    public static void removeOnFragmentDestroy(MoldFragmentDestroyImpl listener) {
+        mOnFragmentDestroyListener.remove(listener);
+    }
+
+    //----------------------------------------------------------------------------------------------
+
     public static void addOnFragmentActivityCreated(MoldFragmentActivityCreatedImpl listener) {
         mOnFragmentActivityCreatedListener.add(listener);
     }
@@ -51,6 +75,8 @@ public class MoldActivity extends AppCompatActivity {
     public static void addOnFragmentDestroy(MoldFragmentDestroyImpl listener) {
         mOnFragmentDestroyListener.add(listener);
     }
+
+    //----------------------------------------------------------------------------------------------
 
     public static void onActivityCreated(@NonNull MoldFragment fragment) {
         if (mOnFragmentActivityCreatedListener.size() == 1) {
@@ -114,7 +140,7 @@ public class MoldActivity extends AppCompatActivity {
 
     //----------------------------------------------------------------------------------------------
     @Nullable
-    private Object contentResult;
+    Object contentResult;
 
     public boolean isActivityRestarted;
 
@@ -201,6 +227,7 @@ public class MoldActivity extends AppCompatActivity {
         }
         FragmentTransaction ft = manager.beginTransaction();
         ft.replace(R.id.fl_mold_content, contentFragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
         if (addToBackStack) {
             ft.addToBackStack(null);

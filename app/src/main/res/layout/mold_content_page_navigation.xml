@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true">
 
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <include
-            layout="@layout/mold_header_footer"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarStyle="outsideOverlay"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white">
 
-        <include
-            layout="@layout/mold_app_bar_scroll"
+            <include
+                layout="@layout/mold_header_footer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbarStyle="outsideOverlay"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <include
+                layout="@layout/mold_app_bar_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </android.support.design.widget.CoordinatorLayout>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            app:itemBackground="?attr/colorPrimary"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:layout_anchorGravity="bottom"
+            app:layout_behavior="uz.mold.behavior.BottomNavigationBehavior" />
 
-    </android.support.design.widget.CoordinatorLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        app:itemBackground="?attr/colorPrimary"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:layout_anchorGravity="bottom"
-        app:layout_behavior="uz.mold.behavior.BottomNavigationBehavior" />
-
-</LinearLayout>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

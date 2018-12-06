@@ -95,4 +95,25 @@ public class Mold {
     }
 
     //----------------------------------------------------------------------------------------------
+
+    public static void replaceContent(Activity activity, MoldContentFragment content) {
+        Mold.cast(activity).replaceContent(content);
+    }
+
+    public static void addContent(Activity activity, MoldContentFragment content) {
+        Mold.cast(activity).addContent(content);
+    }
+
+    //----------------------------------------------------------------------------------------------
+
+    public static void popContent(Activity activity, Object param) {
+        Mold.cast(activity).popContent(param);
+    }
+
+    public static void popContent(Activity activity) {
+        popContent(activity, null);
+    }
+
+    //----------------------------------------------------------------------------------------------
+
 }

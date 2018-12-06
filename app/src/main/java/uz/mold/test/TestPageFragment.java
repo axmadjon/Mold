@@ -9,10 +9,10 @@ import android.support.v4.app.Fragment;
 import uz.mold.Mold;
 import uz.mold.MoldPageTabFragment;
 
-public class TestPageFragmentPage extends MoldPageTabFragment {
+public class TestPageFragment extends MoldPageTabFragment {
 
     public static void open(Activity activity) {
-        Mold.openContent(activity, TestPageFragmentPage.class);
+        Mold.openContent(activity, TestPageFragment.class);
     }
 
     @Override

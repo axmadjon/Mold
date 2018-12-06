@@ -32,16 +32,21 @@ import uz.mold.common.MoldSearchQuery;
 
 public class MoldContentFragment extends MoldFragment {
 
+    public static final String K_HAS_TOOLBAR = "mold.has_toolbar";
+
     protected static final int MENU_SEARCH = 100;
 
     protected TextWatcher mSearchTextWatcher = null;
+
     protected MoldSearchQuery searchQuery;
     protected List<MoldAction> menuActions;
+
     int searchQueryIcon = -1;
 
     private int menuIdSeq;
     private int mToolbar = R.layout.mold_toolbar_default;
     private View mToolbarView = null;
+
     private boolean hasToolbar = true;
 
     public void setHasToolbar(boolean hasToolbar) {
@@ -73,10 +78,26 @@ public class MoldContentFragment extends MoldFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        menuActions = null;
+        searchQuery = null;
+
+        if (savedInstanceState != null) {
+            hasToolbar = savedInstanceState.getBoolean(K_HAS_TOOLBAR, hasToolbar);
+        }
         onInitToolbar();
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putBoolean(K_HAS_TOOLBAR, hasToolbar);
+        super.onSaveInstanceState(outState);
+    }
+
     protected void onInitToolbar() {
+        if (isAdded() && Objects.requireNonNull(getView()).getFitsSystemWindows() && !hasToolbar) {
+            getView().setFitsSystemWindows(hasToolbar);
+        }
+
         if (!isAdded() || !hasToolbar) return;
 
         View rootToolbar = findViewById(R.id.app_bar_layout);
@@ -84,11 +105,17 @@ public class MoldContentFragment extends MoldFragment {
 
         View view = findViewById(R.id.fl_toolbar);
         if (view instanceof ViewGroup) {
-            if (mToolbarView == null) {
+            ViewGroup viewGroupToolbar = (ViewGroup) view;
+
+            View cToolbarView = mToolbarView;
+
+            if (cToolbarView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
-                mToolbarView = inflater.inflate(mToolbar, null);
+                cToolbarView = inflater.inflate(mToolbar, null);
             }
-            ((ViewGroup) view).addView(mToolbarView);
+
+            viewGroupToolbar.removeAllViews();
+            viewGroupToolbar.addView(cToolbarView);
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
