@@ -47,6 +47,12 @@ public class MoldIndexFragment extends MoldFragment implements MoldFragmentStart
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        MoldActivity.addOnFragmentStart(this);
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         MoldActivity.removeOnFragmentStart(this);

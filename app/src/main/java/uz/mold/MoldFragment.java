@@ -18,12 +18,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class MoldFragment extends Fragment {
 
     private static final String ARG_FRAGMENT_DATA = "uz.mold.mold_content_data";
 
     protected ViewSetup vsRoot;
 
+    private Map<Integer, View> mViewCache = new HashMap<>();
     private Parcelable data;
 
     @Override
@@ -66,8 +70,17 @@ public abstract class MoldFragment extends Fragment {
 
     @Nullable
     public <V extends View> V findViewById(@IdRes int resId) {
-        View view = getView();
-        return view == null ? null : view.findViewById(resId);
+        View findView = mViewCache.get(resId);
+
+        if (findView == null) {
+            View view = getView();
+            findView = view == null ? null : view.findViewById(resId);
+
+            if (findView != null) {
+                mViewCache.put(resId, findView);
+            }
+        }
+        return (V) findView;
     }
 
     @NonNull
