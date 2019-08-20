@@ -86,7 +86,7 @@ public abstract class MoldPageFragment<E> extends MoldContentHeaderFooterFragmen
     //----------------------------------------------------------------------------------------------
 
     public void setPageListener(PageListener pageListener) {
-        MyPageAdapter adapter = new MyPageAdapter(getChildFragmentManager(), pageListener);
+        MyPageAdapter adapter = new MyPageAdapter(getActivity().getSupportFragmentManager(), pageListener);
         pageListener.adapter = adapter;
         setAdapter(adapter);
     }
