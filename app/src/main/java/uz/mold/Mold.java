@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 @SuppressWarnings("WeakerAccess")
 public class Mold {
@@ -96,11 +97,11 @@ public class Mold {
 
     //----------------------------------------------------------------------------------------------
 
-    public static void replaceContent(Activity activity, MoldContentFragment content) {
+    public static void replaceContent(Activity activity, MoldFragment content) {
         Mold.cast(activity).replaceContent(content);
     }
 
-    public static void addContent(Activity activity, MoldContentFragment content) {
+    public static void addContent(Activity activity, MoldFragment content) {
         Mold.cast(activity).addContent(content);
     }
 

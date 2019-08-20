@@ -1,22 +1,28 @@
 package uz.mold;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewSetup {
 
@@ -39,6 +45,10 @@ public class ViewSetup {
 
     public ViewSetup(@NonNull Context context, @LayoutRes int layoutId) {
         this(LayoutInflater.from(context), null, layoutId);
+    }
+
+    public ViewSetup(@NonNull Fragment fragment, @LayoutRes int layoutId) {
+        this(fragment.getContext(), layoutId);
     }
 
     @SuppressWarnings("unchecked")
@@ -91,6 +101,11 @@ public class ViewSetup {
     }
 
     @NonNull
+    public CheckBox checkBox(@IdRes int resId) {
+        return id(resId);
+    }
+
+    @NonNull
     public Spinner spinner(@IdRes int resId) {
         return id(resId);
     }
@@ -98,6 +113,25 @@ public class ViewSetup {
     @NonNull
     public <T extends ViewGroup> T viewGroup(@IdRes int resId) {
         return id(resId);
+    }
+
+    @NonNull
+    public RadioButton radioButton(@IdRes int resId) {
+        return id(resId);
+    }
+
+    @NonNull
+    public LinearLayout linearLayout(@IdRes int resId) {
+        return id(resId);
+    }
+
+    @NonNull
+    public RecyclerView recyclerView(@IdRes int resId) {
+        return id(resId);
+    }
+
+    public void visible(@IdRes int resId, boolean visible) {
+        id(resId).setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
 }

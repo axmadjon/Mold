@@ -1,12 +1,14 @@
 package uz.mold.behavior;// 04.11.2016
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import uz.mold.UI;
 
@@ -30,7 +32,7 @@ public class BottomNavigationBehavior extends CoordinatorLayout.Behavior<BottomN
             CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
             int fabBottomMargin = lp.bottomMargin;
             int distanceToScroll = fab.getHeight() + fabBottomMargin;
-            float ratio = (float) dependency.getY() / (float) toolbarHeight;
+            float ratio = dependency.getY() / (float) toolbarHeight;
             fab.setTranslationY(-distanceToScroll * ratio);
         }
         return true;

@@ -1,17 +1,20 @@
 package uz.mold;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
@@ -20,6 +23,8 @@ import uz.mold.common.MoldFragmentDestroyImpl;
 import uz.mold.common.MoldFragmentLowMemoryImpl;
 import uz.mold.common.MoldFragmentStartImpl;
 import uz.mold.common.MoldFragmentStopImpl;
+import uz.mold.lang.LangPref;
+import uz.mold.lang.LocaleHelper;
 
 public class MoldActivity extends AppCompatActivity {
 
@@ -139,6 +144,19 @@ public class MoldActivity extends AppCompatActivity {
     }
 
     //----------------------------------------------------------------------------------------------
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, LangPref.getLanguage(newBase)));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LocaleHelper.setLocale(this, LangPref.getLanguage(this));
+    }
+
+    //----------------------------------------------------------------------------------------------
     @Nullable
     Object contentResult;
 
@@ -150,6 +168,12 @@ public class MoldActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mOnFragmentActivityCreatedListener.clear();
+        mOnFragmentStartListener.clear();
+        mOnFragmentStopListener.clear();
+        mOnFragmentLowMemoryListener.clear();
+        mOnFragmentDestroyListener.clear();
 
         if (savedInstanceState != null) {
             mData = savedInstanceState.getParcelable(MoldUtil.ARG_DATA);
@@ -164,9 +188,10 @@ public class MoldActivity extends AppCompatActivity {
         }
 
         addOnFragmentStart(fragment -> {
-            if (contentResult != null) {
-                fragment.onAboveContentPopped(contentResult);
-                contentResult = null;
+            MoldActivity activity = (MoldActivity) fragment.getActivity();
+            if (activity != null && activity.contentResult != null) {
+                fragment.onAboveContentPopped(activity.contentResult);
+                activity.contentResult = null;
             }
         });
     }
@@ -183,7 +208,7 @@ public class MoldActivity extends AppCompatActivity {
                 if (w == null) {
                     return ret;
                 }
-                int scrcoords[] = new int[2];
+                int[] scrcoords = new int[2];
                 w.getLocationOnScreen(scrcoords);
                 float x = event.getRawX() + w.getLeft() - scrcoords[0];
                 float y = event.getRawY() + w.getTop() - scrcoords[1];

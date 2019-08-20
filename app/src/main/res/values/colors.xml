@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/app_color</color>
+    <color name="colorPrimaryDark">@color/app_color_dark</color>
+    <color name="colorAccent">@color/app_color_accent</color>
+
+    <color name="app_color">@color/white</color>
+    <color name="app_color_dark">#d9d9d9</color>
+    <color name="app_color_accent">#5877F3</color>
+
+    <color name="icon_default">#707070</color>
+    <color name="line_default">#ababab</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="color_transparent">#00000000</color>
 
     <color name="toolbar_icon_color_silver_dark">#323234</color>
     <color name="toolbar_subtitle_icon_color_silver_dark">#616166</color>
 
-
     <color name="mold_search_hint_color">#ababab</color>
     <color name="mold_search_icon_color">#707070</color>
     <color name="mold_search_text_color">#707070</color>
-
 </resources>

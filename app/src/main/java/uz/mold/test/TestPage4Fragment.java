@@ -1,7 +1,8 @@
 package uz.mold.test;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import uz.mold.MoldContentFragment;
 import uz.mold.R;

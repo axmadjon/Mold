@@ -2,12 +2,14 @@ package uz.mold;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MoldPageNavigationFragment extends MoldPageFragment {
 
@@ -58,17 +60,22 @@ public class MoldPageNavigationFragment extends MoldPageFragment {
 
         for (int i = 0; i < count; i++) {
             MenuItem mItem = menu.add(Menu.NONE, i, Menu.NONE, adapter.getPageTitle(i));
+            mItem.setCheckable(true);
+
             if (adapter instanceof MyPageAdapter) {
                 PageListener listener = ((MyPageAdapter) adapter).listener;
                 Drawable icon = listener.getIcon(i);
                 if (icon != null) mItem.setIcon(icon);
             }
 
+            if (showingItem == -1) {
+                showingItem = i;
+            }
 
-            if (showingItem != -1 && i == showingItem) {
+            if (i == showingItem) {
                 mItem.setChecked(true);
             } else {
-                mItem.setCheckable(false);
+                mItem.setChecked(false);
             }
         }
     }

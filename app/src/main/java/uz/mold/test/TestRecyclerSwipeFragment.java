@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.Nullable;
 import android.widget.ArrayAdapter;
+
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class TestRecyclerSwipeFragment extends MoldRecyclerSwipeFragment<String>
         });
 
         setProgressText("Loading in database");
-        setEmptyView(R.mipmap.ic_launcher, "Text Empty");
+        setEmptyView(R.drawable.ic_smartup_launcher, "Text Empty");
 
         onRefresh();
     }

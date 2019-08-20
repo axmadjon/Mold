@@ -1,16 +1,16 @@
 package uz.mold;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Objects;
 
@@ -29,21 +29,14 @@ public class MoldIndexFragment extends MoldFragment implements MoldFragmentStart
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        MoldActivity.addOnFragmentStart(this);
-    }
-
-    @Override
     public void onStart(@NonNull MoldFragment fragment) {
-        MoldFragment contentFragment = getContentFragment();
-        if (contentFragment == fragment) {
-            View view = findViewById(R.id.toolbar);
-            if (view instanceof Toolbar) {
-                initDrawer((Toolbar) view);
-            }
+//        MoldFragment contentFragment = getContentFragment();
+//        if (contentFragment == fragment) {
+        View view = findViewById(R.id.toolbar);
+        if (view instanceof Toolbar) {
+            initDrawer((Toolbar) view);
         }
+//        }
     }
 
     @Override
@@ -67,7 +60,7 @@ public class MoldIndexFragment extends MoldFragment implements MoldFragmentStart
 
         UI.hideSoftKeyboard(Objects.requireNonNull(getActivity()));
 
-        FragmentManager manager = getChildFragmentManager();
+        FragmentManager manager = getActivity().getSupportFragmentManager();
 
         if (!addToBackStack && manager.getBackStackEntryCount() > 0) {
             manager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -85,7 +78,7 @@ public class MoldIndexFragment extends MoldFragment implements MoldFragmentStart
 
     @Nullable
     public MoldFragment getContentFragment() {
-        return (MoldFragment) getChildFragmentManager().findFragmentById(R.id.fl_index_content);
+        return (MoldFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.fl_index_content);
     }
 
     public void replaceContent(@NonNull MoldFragment content) {
@@ -99,7 +92,7 @@ public class MoldIndexFragment extends MoldFragment implements MoldFragmentStart
     public void popContent(@Nullable Object result) {
         if (!isAdded()) return;
 
-        getChildFragmentManager().popBackStack();
+        getActivity().getSupportFragmentManager().popBackStack();
         Mold.cast(Objects.requireNonNull(getActivity())).contentResult = result;
     }
 

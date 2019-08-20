@@ -1,11 +1,12 @@
 package uz.mold;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public abstract class MoldRecyclerSwipeFragment<E> extends MoldRecyclerFragment<E> implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -46,10 +47,14 @@ public abstract class MoldRecyclerSwipeFragment<E> extends MoldRecyclerFragment<
     }
 
     protected void startRefresh() {
-        this.mSwipeRefreshLayout.setRefreshing(true);
+        if (this.mSwipeRefreshLayout != null) {
+            this.mSwipeRefreshLayout.setRefreshing(true);
+        }
     }
 
     protected void stopRefresh() {
-        this.mSwipeRefreshLayout.setRefreshing(false);
+        if (this.mSwipeRefreshLayout != null) {
+            this.mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

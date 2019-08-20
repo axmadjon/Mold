@@ -1,11 +1,12 @@
 package uz.mold.adapter;// 25.05.2016
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.widget.Filter;
 import android.widget.Filterable;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,8 +2,9 @@ package uz.mold.test;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import uz.mold.Mold;
 import uz.mold.MoldContentFragment;

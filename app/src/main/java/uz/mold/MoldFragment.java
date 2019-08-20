@@ -1,13 +1,8 @@
 package uz.mold;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.ColorRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +12,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,9 +50,21 @@ public abstract class MoldFragment extends Fragment {
         return inflater.inflate(getContentResourceId(), container, false);
     }
 
+    public boolean checkSelfPermission(int requestCode, String... args) {
+        for (String item : args) {
+            if (ContextCompat.checkSelfPermission(getActivity(), item) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(args, requestCode);
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mViewCache.clear();
+
         vsRoot = new ViewSetup(populateContentView(inflater, container, savedInstanceState));
         return vsRoot.view;
     }

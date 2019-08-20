@@ -2,10 +2,12 @@ package uz.mold;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.PagerAdapter;
+
+import com.google.android.material.tabs.TabLayout;
 
 public class MoldPageTabFragment extends MoldPageFragment {
 
@@ -30,7 +32,7 @@ public class MoldPageTabFragment extends MoldPageFragment {
         super.setAdapter(adapter);
 
         int count = adapter.getCount();
-        if (adapter instanceof MyPageAdapter) {
+        if (adapter instanceof MoldPageFragment.MyPageAdapter) {
             MyPageAdapter myAdapter = (MyPageAdapter) adapter;
             if (myAdapter.listener != null) {
                 for (int i = 0; i < count; i++) {
