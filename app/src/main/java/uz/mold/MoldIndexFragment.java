@@ -32,7 +32,7 @@ public class MoldIndexFragment extends MoldFragment implements MoldFragmentStart
     public void onStart(@NonNull MoldFragment fragment) {
 //        MoldFragment contentFragment = getContentFragment();
 //        if (contentFragment == fragment) {
-        View view = findViewById(R.id.toolbar);
+        View view = fragment.findViewById(R.id.toolbar);
         if (view instanceof Toolbar) {
             initDrawer((Toolbar) view);
         }
