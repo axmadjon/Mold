@@ -53,7 +53,7 @@ public class MoldIndexFragment extends MoldFragment implements MoldFragmentStart
 
     //----------------------------------------------------------------------------------------------
 
-    private void openContent(MoldFragment contentFragment, boolean addToBackStack) {
+    protected void openContent(MoldFragment contentFragment, boolean addToBackStack) {
         closeIndexDrawer();
 
         if (!isAdded()) return;
@@ -161,7 +161,7 @@ public class MoldIndexFragment extends MoldFragment implements MoldFragmentStart
 
     //----------------------------------------------------------------------------------------------
 
-    private void initDrawer(Toolbar toolbar) {
+    protected void initDrawer(Toolbar toolbar) {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         if (mDrawerLayout != null) {
             mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout, toolbar, R.string.open, R.string.close) {
