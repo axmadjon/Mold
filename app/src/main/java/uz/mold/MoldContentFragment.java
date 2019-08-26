@@ -127,10 +127,11 @@ public class MoldContentFragment extends MoldFragment {
 
         View mSearchCancel = findViewById(R.id.iv_cancel);
         if (mSearchCancel != null) {
-            mSearchCancel.setOnClickListener(v -> circleReveal(R.id.ll_search, 1, true, false));
-
             EditText mSearch = getActivity().findViewById(R.id.auto_complete);
-            mSearch.setText("");
+            mSearchCancel.setOnClickListener(v -> {
+                mSearch.setText("");
+                circleReveal(R.id.ll_search, 1, true, false);
+            });
         }
 
         View mClearView = findViewById(R.id.iv_clear);
